@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class UserResponse {
+public class UserQueryResponse {
 
     @JsonIgnore
     private Long id;

@@ -2,7 +2,7 @@ package com.brcubg.demoSpringProject.service.UserService;
 
 import com.brcubg.demoSpringProject.entity.User;
 import com.brcubg.demoSpringProject.repository.UserRepository;
-import com.brcubg.demoSpringProject.respons.UserRepository.UserResponse.UserResponse;
+import com.brcubg.demoSpringProject.respons.UserRepository.UserResponse.UserQueryResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class UserService implements UserServiceImpl {
     }
 
     @Override
-    public List<UserResponse> getAllUsers(String userName) {
+    public List<UserQueryResponse> getAllUsers(String userName) {
         List<User> users;
         if(userName.isEmpty()){
             users = userRepository.findAll();
@@ -26,12 +26,12 @@ public class UserService implements UserServiceImpl {
             users = userRepository.findByUserNameContaining(userName);
         }
         return users.stream().map(user -> {
-            UserResponse userResponse = new UserResponse();
-            userResponse.setId(user.getId());
-            userResponse.setUserName(user.getUserName());
-            userResponse.setPassword(user.getPassword());
-            userResponse.setRole(user.getRoleId());
-            return userResponse;
+            UserQueryResponse userQueryResponse = new UserQueryResponse();
+            userQueryResponse.setId(user.getId());
+            userQueryResponse.setUserName(user.getUserName());
+            userQueryResponse.setPassword(user.getPassword());
+            userQueryResponse.setRole(user.getRoleId());
+            return userQueryResponse;
         }).collect(Collectors.toList());
     }
 }
