@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoSpringProjectApplication {
 
     public static void main(String[] args) {
-		System.out.println("Hello World!");
+		System.out.println("CRUD operation with repository");
 		SpringApplication.run(DemoSpringProjectApplication.class, args);
     }
 
