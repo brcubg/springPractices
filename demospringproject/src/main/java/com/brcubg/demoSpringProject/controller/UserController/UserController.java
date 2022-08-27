@@ -1,10 +1,9 @@
 package com.brcubg.demoSpringProject.controller.UserController;
 
-import com.brcubg.demoSpringProject.entity.User;
+import com.brcubg.demoSpringProject.request.UserRequest.UserRequest;
+import com.brcubg.demoSpringProject.respons.UserRepository.UserResponse.UserResponse;
 import com.brcubg.demoSpringProject.service.UserService.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping
-    private List<User> getAllUsers() {
-        return userService.getAllUsers();
+    private List<UserResponse> getAllUsers(@RequestBody UserRequest userRequest) {
+        return userService.getAllUsers(userRequest.getUserName());
     }
 }
