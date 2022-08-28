@@ -1,4 +1,4 @@
-package com.brcubg.demoSpringProject.respons.UserRepository.UserResponse;
+package com.brcubg.demoSpringProject.response.UserResponse;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;

@@ -1,7 +1,7 @@
 package com.brcubg.demoSpringProject.controller.UserController;
 
 import com.brcubg.demoSpringProject.request.UserRequest.UserQueryRequest;
-import com.brcubg.demoSpringProject.respons.UserRepository.UserResponse.UserQueryResponse;
+import com.brcubg.demoSpringProject.response.UserResponse.UserQueryResponse;
 import com.brcubg.demoSpringProject.service.UserService.UserService;
 import org.springframework.web.bind.annotation.*;
 
