@@ -2,7 +2,7 @@ package com.brcubg.demoSpringProject.service.UserService;
 
 import com.brcubg.demoSpringProject.dao.UserDao.UserDao;
 import com.brcubg.demoSpringProject.entity.User;
-import com.brcubg.demoSpringProject.repository.UserRepository;
+import com.brcubg.demoSpringProject.request.UserRequest.UserQueryRequest;
 import com.brcubg.demoSpringProject.response.RoleResponse.RoleQueryResponse;
 import com.brcubg.demoSpringProject.response.UserResponse.UserQueryResponse;
 import com.brcubg.demoSpringProject.service.RoleService.RoleService;
@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserQueryResponse> getAllUsers(String userName) {
-        List<User> users = userDao.findUsersByUserName(userName);
+    public List<UserQueryResponse> getAllUsers(UserQueryRequest request) {
+        List<User> users = userDao.findUsersByUserName(request);
         return users.stream().map(user -> {
             UserQueryResponse userQueryResponse = new UserQueryResponse();
             userQueryResponse.setId(user.getId());

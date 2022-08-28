@@ -12,14 +12,12 @@ import java.util.List;
 public class UserController {
 
     final private UserService userService;
-
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping
-    private List<UserQueryResponse> getAllUsers(@RequestBody UserQueryRequest userQueryRequest) {
-        return userService.getAllUsers(userQueryRequest.getUserName());
+    private List<UserQueryResponse> getAllUsers(@RequestBody UserQueryRequest request) {
+        return userService.getAllUsers(request);
     }
 }
