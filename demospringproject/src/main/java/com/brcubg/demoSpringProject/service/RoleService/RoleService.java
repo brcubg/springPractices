@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface RoleService {
     List<RoleQueryResponse> getAllRoles(String roleName);
+    RoleQueryResponse findRoleById(Long id);
 }

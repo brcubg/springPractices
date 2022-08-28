@@ -22,4 +22,6 @@ public class UserQueryResponse {
     @NotNull
     private String password;
 
+    private String roleName;
+
 }
