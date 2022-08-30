@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
             userQueryResponse.setId(user.getId());
             userQueryResponse.setUserName(user.getUserName());
             userQueryResponse.setPassword(user.getPassword());
-
+            //TODO: convert roleService to roleDao
             RoleQueryResponse role = roleService.findRoleById(user.getRoleId());
             if(role!=null){
                 userQueryResponse.setRole(user.getRoleId());
@@ -38,5 +38,10 @@ public class UserServiceImpl implements UserService {
             }
             return userQueryResponse;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserQueryResponse getUser(Long id) {
+        return userDao.getUser(id);
     }
 }
