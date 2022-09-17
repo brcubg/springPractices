@@ -1,6 +1,8 @@
 package com.brcubg.demoSpringProject.controller.UserController;
 
 import com.brcubg.demoSpringProject.constant.ApiPaths;
+import com.brcubg.demoSpringProject.entity.User;
+import com.brcubg.demoSpringProject.request.UserRequest.UserCreateRequest;
 import com.brcubg.demoSpringProject.request.UserRequest.UserQueryRequest;
 import com.brcubg.demoSpringProject.response.UserResponse.UserQueryResponse;
 import com.brcubg.demoSpringProject.service.UserService.UserService;
@@ -43,5 +45,14 @@ public class UserController {
             throw new Exception("User Not Found!");
         }
         return userService.getUser(id);
+    }
+
+    @PostMapping(path = ApiPaths.UserPaths.CREATE_PATH)
+    private User createUser(@RequestBody UserCreateRequest request) throws Exception {
+        List<String> errors = userValidator.createUserValidate(request);
+        if(!errors.isEmpty()){
+            throw new Exception("Entered parameters must suitable to the format!" + errors);
+        }
+        return userService.createUser(request);
     }
 }

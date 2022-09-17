@@ -1,6 +1,7 @@
 package com.brcubg.demoSpringProject.dao.RoleDao;
 
 import com.brcubg.demoSpringProject.entity.Role;
+import com.brcubg.demoSpringProject.repository.RoleRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,11 @@ public class RoleDao {
     @PersistenceContext
     EntityManager entityManager;
 
+    final private RoleRepository roleRepository;
+
+    public RoleDao(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
     public List<Role> findRolesByRoleName(String roleName){
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Role> criteriaQuery = criteriaBuilder.createQuery(Role.class);
@@ -28,5 +34,8 @@ public class RoleDao {
 
         TypedQuery<Role> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
+    }
+    public boolean isExistId(Long id){
+        return roleRepository.existsById(id);
     }
 }
