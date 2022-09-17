@@ -2,6 +2,7 @@ package com.brcubg.demoSpringProject.service.UserService;
 
 import com.brcubg.demoSpringProject.dao.UserDao.UserDao;
 import com.brcubg.demoSpringProject.entity.User;
+import com.brcubg.demoSpringProject.request.UserRequest.UserCreateRequest;
 import com.brcubg.demoSpringProject.request.UserRequest.UserQueryRequest;
 import com.brcubg.demoSpringProject.response.RoleResponse.RoleQueryResponse;
 import com.brcubg.demoSpringProject.response.UserResponse.UserQueryResponse;
@@ -43,5 +44,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserQueryResponse getUser(Long id) {
         return userDao.getUser(id);
+    }
+
+    @Override
+    public User createUser(UserCreateRequest request) {
+        return userDao.createUser(request);
     }
 }

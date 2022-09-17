@@ -2,6 +2,7 @@ package com.brcubg.demoSpringProject.dao.UserDao;
 
 import com.brcubg.demoSpringProject.entity.User;
 import com.brcubg.demoSpringProject.repository.UserRepository;
+import com.brcubg.demoSpringProject.request.UserRequest.UserCreateRequest;
 import com.brcubg.demoSpringProject.request.UserRequest.UserQueryRequest;
 import com.brcubg.demoSpringProject.response.UserResponse.UserQueryResponse;
 import org.springframework.stereotype.Repository;
@@ -53,5 +54,14 @@ public class UserDao {
         }
 
         return response;
+    }
+
+    public User createUser(UserCreateRequest request) {
+        User user = new User();
+        user.setUserName(request.getUserName());
+        user.setPassword(request.getPassword());
+        user.setRoleId(request.getRole());
+
+        return userRepository.save(user);
     }
 }
