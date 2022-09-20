@@ -74,4 +74,14 @@ public class UserDao {
             return false;
         }
     }
+
+    public User updateUser(Long id, UserCreateRequest request) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            user.get().setUserName(request.getUserName());
+            user.get().setPassword(request.getPassword());
+            user.get().setRoleId(request.getRole());
+        }
+        return userRepository.save(user.get());
+    }
 }

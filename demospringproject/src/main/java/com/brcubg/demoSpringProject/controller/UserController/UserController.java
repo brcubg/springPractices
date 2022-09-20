@@ -65,4 +65,13 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
+    @PutMapping(path = ApiPaths.UserPaths.UPDATE_PATH)
+    private User updateUser(@PathVariable Long id, @RequestBody UserCreateRequest request) throws Exception {
+        List<String> errors = userValidator.validate(id);
+        errors.addAll(userValidator.createUserValidate(request));
+        if(!errors.isEmpty()){
+            throw new Exception("Entered parameters must suitable to the format!" + errors);
+        }
+        return userService.updateUser(id, request);
+    }
 }
