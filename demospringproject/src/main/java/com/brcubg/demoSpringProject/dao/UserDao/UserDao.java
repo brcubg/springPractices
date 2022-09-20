@@ -64,4 +64,14 @@ public class UserDao {
 
         return userRepository.save(user);
     }
+
+    public boolean deleteUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userRepository.delete(user.get());
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
