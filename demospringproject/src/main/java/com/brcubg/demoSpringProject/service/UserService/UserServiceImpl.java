@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
     public User createUser(UserCreateRequest request) {
         return userDao.createUser(request);
     }
+
+    @Override
+    public boolean deleteUser(Long id) {
+        userDao.deleteUser(id);
+        return true;
+    }
 }

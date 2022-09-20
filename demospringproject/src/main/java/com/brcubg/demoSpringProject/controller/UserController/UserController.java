@@ -55,4 +55,14 @@ public class UserController {
         }
         return userService.createUser(request);
     }
+
+    @DeleteMapping(path = ApiPaths.UserPaths.DELETE_PATH)
+    private boolean deleteUser(@PathVariable Long id) throws Exception {
+        List<String> errors = userValidator.validate(id);
+        if(!errors.isEmpty()){
+            throw new Exception("Enter a valid value!" + errors);
+        }
+        return userService.deleteUser(id);
+    }
+
 }
