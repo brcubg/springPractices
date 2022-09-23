@@ -25,15 +25,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserQueryResponse> getAllUsers(UserQueryRequest request) {
-        List<User> users = userDao.findUsersByUserName(request);
+        List<User> users = userDao.IsFilteredUsers(request);
+        // TODO: check user isEmpty
         return users.stream().map(user -> {
-            UserQueryResponse userQueryResponse = new UserQueryResponse();
-            userQueryResponse.setId(user.getId());
-            userQueryResponse.setUserName(user.getUserName());
-            userQueryResponse.setPassword(user.getPassword());
+            UserQueryResponse userQueryResponse = UserQueryResponse.builder()
+                    .id(user.getId())
+                    .userName(user.getUserName())
+                    .password(user.getPassword())
+                    .role(user.getRoleId())
+                    .build();
             //TODO: convert roleService to roleDao
             RoleQueryResponse role = roleService.findRoleById(user.getRoleId());
-            if(role!=null){
+            if(role != null){
                 userQueryResponse.setRole(user.getRoleId());
                 userQueryResponse.setRoleName(role.getRoleName());
             }
@@ -52,9 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(Long id) {
+    public void deleteUser(Long id) {
         userDao.deleteUser(id);
-        return true;
     }
 
     @Override
