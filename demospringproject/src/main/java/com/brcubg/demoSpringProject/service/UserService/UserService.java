@@ -4,6 +4,7 @@ import com.brcubg.demoSpringProject.entity.User;
 import com.brcubg.demoSpringProject.request.UserRequest.UserCreateRequest;
 import com.brcubg.demoSpringProject.request.UserRequest.UserQueryRequest;
 import com.brcubg.demoSpringProject.response.UserResponse.UserQueryResponse;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface UserService {
 
     User createUser(UserCreateRequest request);
 
-    boolean deleteUser(Long id);
+    void deleteUser(Long id);
 
     User updateUser(Long id, UserCreateRequest request);
 }
