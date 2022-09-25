@@ -19,7 +19,7 @@ public class RoleDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    final private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     public RoleDao(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;

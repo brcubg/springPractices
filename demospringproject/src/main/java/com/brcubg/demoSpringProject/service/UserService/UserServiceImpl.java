@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    final private UserDao userDao;
-    final private RoleService roleService;
+    private final UserDao userDao;
+    private final RoleService roleService;
 
     public UserServiceImpl(UserDao userDao, RoleService roleService) {
         this.userDao = userDao;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserQueryResponse> getAllUsers(UserQueryRequest request) {
-        List<User> users = userDao.IsFilteredUsers(request);
+        List<User> users = userDao.isFilteredUsers(request);
         // TODO: check user isEmpty
         return users.stream().map(user -> {
             UserQueryResponse userQueryResponse = UserQueryResponse.builder()
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
                 userQueryResponse.setRoleName(role.getRoleName());
             }
             return userQueryResponse;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
     @Override

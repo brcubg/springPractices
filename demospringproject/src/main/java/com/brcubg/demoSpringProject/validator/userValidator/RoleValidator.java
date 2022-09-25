@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class RoleValidator {
 
-    final private RoleDao roleDao;
+    private final RoleDao roleDao;
 
     public RoleValidator(RoleDao roleDao) {
         this.roleDao = roleDao;

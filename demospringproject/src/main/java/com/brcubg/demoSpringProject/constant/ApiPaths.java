@@ -2,7 +2,7 @@ package com.brcubg.demoSpringProject.constant;
 
 public final class ApiPaths {
 
-    public ApiPaths() {
+    private ApiPaths() {
     }
 
     private static final String PATH_DELIMETER = "/";
@@ -10,7 +10,7 @@ public final class ApiPaths {
 
     public static final class UserPaths{
 
-        public UserPaths() {
+        private UserPaths() {
         }
         private static final String ROOT_PATH = BASE_PATH + "/user";
         public static final String CREATE_PATH = ROOT_PATH + "/create";
@@ -21,7 +21,7 @@ public final class ApiPaths {
     }
 
     public static final class RolePaths{
-        public RolePaths() {
+        private RolePaths() {
         }
         private static final String ROOT_PATH = BASE_PATH + "/role";
         public static final String CREATE_PATH = ROOT_PATH + "/create";

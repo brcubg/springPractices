@@ -11,19 +11,19 @@ import java.util.List;
 @RestController
 public class RoleController {
 
-    final private RoleService roleService;
+    private final RoleService roleService;
 
     public RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
 
     @GetMapping(path = ApiPaths.RolePaths.QUERY_PATH)
-    private List<RoleQueryResponse> getAllRoles(@RequestBody RoleQueryRequest request){
+    public List<RoleQueryResponse> getAllRoles(@RequestBody RoleQueryRequest request){
         return roleService.getAllRoles(request.getRoleName());
     }
 
     @GetMapping(path = ApiPaths.RolePaths.GET_ROLE_PATH)
-    private RoleQueryResponse findRoleById(@PathVariable Long id) {
+    public RoleQueryResponse findRoleById(@PathVariable Long id) {
         return roleService.findRoleById(id);
     }
 }

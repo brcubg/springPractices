@@ -22,7 +22,7 @@ import java.util.Optional;
 @Repository
 public class UserDao {
 
-    final private UserRepository userRepository;
+    private final UserRepository userRepository;
     @PersistenceContext
     EntityManager entityManager;
 
@@ -30,7 +30,7 @@ public class UserDao {
         this.userRepository = userRepository;
     }
 
-    public List<User> IsFilteredUsers(UserQueryRequest request) {
+    public List<User> isFilteredUsers(UserQueryRequest request) {
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);

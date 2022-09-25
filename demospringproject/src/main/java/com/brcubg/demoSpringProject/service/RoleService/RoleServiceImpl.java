@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements RoleService{
 
-    final private RoleDao roleDao;
-    final private RoleRepository roleRepository;
+    private final RoleDao roleDao;
+    private final RoleRepository roleRepository;
 
     public RoleServiceImpl(RoleDao roleDao, RoleRepository roleRepository) {
         this.roleDao = roleDao;
@@ -29,7 +28,7 @@ public class RoleServiceImpl implements RoleService{
             response.setId(role.getId());
             response.setRoleName(role.getRoleName());
             return response;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
     @Override

@@ -13,9 +13,9 @@ import java.util.regex.Pattern;
 @Service
 public class UserValidator {
 
-    final private UserDao userDao;
+    private final UserDao userDao;
 
-    final private RoleDao roleDao;
+    private final RoleDao roleDao;
 
     public UserValidator(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
