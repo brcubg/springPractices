@@ -1,7 +1,6 @@
 package com.brcubg.demoSpringProject.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,9 @@ import javax.persistence.*;
 @Table(name = "user_model")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @Column(name = "id", updatable = false, nullable = false)

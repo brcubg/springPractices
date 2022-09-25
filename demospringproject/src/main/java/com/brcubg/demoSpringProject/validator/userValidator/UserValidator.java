@@ -25,7 +25,7 @@ public class UserValidator {
     public List<String> validate(Long id){
         List<String> errors = new ArrayList<>();
         if(id == null){
-            errors.add("Id Not Found!");
+            errors.add("User Id Not Found!");
             return errors;
         }
         if(Boolean.FALSE.equals(userDao.isExistId(id))){
@@ -42,7 +42,7 @@ public class UserValidator {
         return errors;
     }
 
-    public List<String> createUserValidate(UserCreateRequest request){
+    public List<String> createOrUpdateUserValidate(UserCreateRequest request){
         List<String> errors = new ArrayList<>();
         if(!Strings.isEmpty(request.getUserName()) && !Pattern.compile("^[a-zA-Z0-9][a-z0-9A-Z]*$").matcher(request.getUserName()).matches()){
             errors.add("Not valid " + request.getUserName() + " username!!") ;

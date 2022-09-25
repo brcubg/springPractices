@@ -7,6 +7,9 @@ import com.brcubg.demoSpringProject.request.UserRequest.UserQueryRequest;
 import com.brcubg.demoSpringProject.response.UserResponse.UserQueryResponse;
 import com.brcubg.demoSpringProject.service.UserService.UserService;
 import com.brcubg.demoSpringProject.validator.userValidator.UserValidator;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping(path = ApiPaths.UserPaths.QUERY_PATH)
-    private List<UserQueryResponse> getAllUsers(@RequestBody UserQueryRequest request) throws Exception {
+    private ResponseEntity<List<UserQueryResponse>> getAllUsers(@RequestBody UserQueryRequest request) {
         //TODO: Add errorList for pageValidator when Pagination added
         /*
         List<String> errors = pageValidator.validate(pageSize, pageNum);
@@ -31,47 +34,59 @@ public class UserController {
             throw new Exception("User Not Found!");
         }
          */
-        List<String> errors = userValidator.validateUserName(request.getUserName());
-        if(!errors.isEmpty()){
-            throw new Exception("Not found user by with " + request.getUserName() + " username!");
+        try{
+            return new ResponseEntity<>(userService.getAllUsers(request), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return userService.getAllUsers(request);
     }
 
     @GetMapping(path = ApiPaths.UserPaths.GET_USER_PATH)
-    private UserQueryResponse getUser(@PathVariable Long id) throws Exception {
+    private ResponseEntity<UserQueryResponse> getUser(@PathVariable Long id) throws Exception {
         List<String> errors = userValidator.validate(id);
         if(!errors.isEmpty()){
-            throw new Exception("User Not Found!");
+            throw new Exception("Id not found!" + errors);
         }
-        return userService.getUser(id);
+        try {
+            return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(path = ApiPaths.UserPaths.CREATE_PATH)
-    private User createUser(@RequestBody UserCreateRequest request) throws Exception {
-        List<String> errors = userValidator.createUserValidate(request);
+    private ResponseEntity<User> createUser(@RequestBody UserCreateRequest request) throws Exception {
+        List<String> errors = userValidator.createOrUpdateUserValidate(request);
         if(!errors.isEmpty()){
             throw new Exception("Entered parameters must suitable to the format!" + errors);
         }
-        return userService.createUser(request);
+        try {
+            return new ResponseEntity<>(userService.createUser(request), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping(path = ApiPaths.UserPaths.DELETE_PATH)
-    private boolean deleteUser(@PathVariable Long id) throws Exception {
+    private void deleteUser(@PathVariable Long id) throws Exception {
         List<String> errors = userValidator.validate(id);
         if(!errors.isEmpty()){
-            throw new Exception("Enter a valid value!" + errors);
+            throw new Exception("Id not found!" + errors);
         }
-        return userService.deleteUser(id);
+        userService.deleteUser(id);
     }
 
     @PutMapping(path = ApiPaths.UserPaths.UPDATE_PATH)
-    private User updateUser(@PathVariable Long id, @RequestBody UserCreateRequest request) throws Exception {
+    private ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserCreateRequest request) throws Exception {
         List<String> errors = userValidator.validate(id);
-        errors.addAll(userValidator.createUserValidate(request));
+        errors.addAll(userValidator.createOrUpdateUserValidate(request));
         if(!errors.isEmpty()){
             throw new Exception("Entered parameters must suitable to the format!" + errors);
         }
-        return userService.updateUser(id, request);
+        try {
+            return new ResponseEntity<>(userService.updateUser(id, request), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
