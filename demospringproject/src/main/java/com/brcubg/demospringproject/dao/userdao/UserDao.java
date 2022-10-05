@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @Repository
 public class UserDao {
-
     private final UserRepository userRepository;
     @PersistenceContext
     EntityManager entityManager;
@@ -58,7 +57,7 @@ public class UserDao {
 
     public UserQueryResponse getUser(Long id){
         Optional<User> user = Optional.of(userRepository.findById(id).orElseThrow());
-       return UserQueryResponse.builder()
+        return UserQueryResponse.builder()
                .id(user.get().getId())
                .userName(user.get().getUserName())
                .password(user.get().getPassword())

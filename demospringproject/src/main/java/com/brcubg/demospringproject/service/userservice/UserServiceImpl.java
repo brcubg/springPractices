@@ -13,7 +13,6 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserDao userDao;
     private final RoleService roleService;
 
@@ -25,6 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserQueryResponse> getAllUsers(UserQueryRequest request) {
         List<User> users = userDao.isFilteredUsers(request);
+
         // TODO: check user isEmpty
         return users.stream().map(user -> {
             UserQueryResponse userQueryResponse = UserQueryResponse.builder()
