@@ -24,8 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserQueryResponse> getAllUsers(UserQueryRequest request) {
         List<User> users = userDao.isFilteredUsers(request);
-
-        // TODO: check user isEmpty
+        // Streams process all elements of a source, hence, if there are no elements, no action will be taken. Therefore, you don’t need to check whether the list is empty.
         return users.stream().map(user -> {
             UserQueryResponse userQueryResponse = UserQueryResponse.builder()
                     .id(user.getId())
@@ -33,7 +32,6 @@ public class UserServiceImpl implements UserService {
                     .password(user.getPassword())
                     .role(user.getRoleId())
                     .build();
-            //TODO: convert roleService to roleDao
             RoleQueryResponse role = roleService.findRoleById(user.getRoleId());
             if(role != null){
                 userQueryResponse.setRole(user.getRoleId());

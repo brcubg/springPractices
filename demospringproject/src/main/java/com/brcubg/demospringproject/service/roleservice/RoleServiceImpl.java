@@ -2,7 +2,6 @@ package com.brcubg.demospringproject.service.roleservice;
 
 import com.brcubg.demospringproject.dao.roledao.RoleDao;
 import com.brcubg.demospringproject.entity.Role;
-import com.brcubg.demospringproject.repository.RoleRepository;
 import com.brcubg.demospringproject.response.roleresponse.RoleQueryResponse;
 import org.springframework.stereotype.Service;
 
@@ -13,32 +12,31 @@ import java.util.Optional;
 public class RoleServiceImpl implements RoleService{
 
     private final RoleDao roleDao;
-    private final RoleRepository roleRepository;
 
-    public RoleServiceImpl(RoleDao roleDao, RoleRepository roleRepository) {
+    public RoleServiceImpl(RoleDao roleDao) {
         this.roleDao = roleDao;
-        this.roleRepository = roleRepository;
     }
 
     @Override
     public List<RoleQueryResponse> getAllRoles(String roleName) {
         List<Role> roles = roleDao.findRolesByRoleName(roleName);
-        return roles.stream().map(role -> {
-            RoleQueryResponse response = new RoleQueryResponse();
-            response.setId(role.getId());
-            response.setRoleName(role.getRoleName());
-            return response;
-        }).toList();
+        return roles.stream()
+                .map(role -> RoleQueryResponse.builder()
+                    .id(role.getId())
+                    .roleName(role.getRoleName())
+                    .build()
+        ).toList();
     }
 
     @Override
     public RoleQueryResponse findRoleById(Long id) {
-        Optional<Role> role = roleRepository.findById(id);
+        Optional<Role> role = roleDao.findRoleById(id);
         RoleQueryResponse response = null;
         if(role.isPresent()){
-            response = new RoleQueryResponse();
-            response.setId(role.get().getId());
-            response.setRoleName(role.get().getRoleName());
+            response = RoleQueryResponse.builder()
+                    .id(role.get().getId())
+                    .roleName(role.get().getRoleName())
+                    .build();
         }
         return response;
     }
